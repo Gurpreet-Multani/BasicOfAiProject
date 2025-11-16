@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes google-g-pulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.08;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.02);
+          opacity: 0.12;
+        }
+      }
+
+      .google-bg-motif {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 800px;
+        height: 800px;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
+
+        animation: google-g-pulse 6s ease-in-out infinite;
+      }
+
+      .google-g-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .chat-user {
+        background-color: #e8f0fe;
+        color: #202124;
+        border-radius: 18px 18px 4px 18px;
+        align-self: flex-end;
+      }
+      .chat-ai {
+        background-color: #f1f3f4;
+        color: #202124;
+        border-radius: 18px 18px 18px 4px;
+        align-self: flex-start;
+      }
+      .input-focus-google:focus {
+        border-color: #4285f4;
+        box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+      }
+    </style>
+    <title>Gemini Assistant</title>
+    <script type="module" src="index.js"></script>
+  </head>
+  <body
+    class="bg-white text-gray-800 min-h-screen flex flex-col items-center justify-center font-sans p-4"
+  >
+    <div class="google-bg-motif">
+      <svg
+        class="google-g-logo"
+        viewBox="0 0 512 512"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M473.844 263.297c0-20.473-1.638-40.09-4.664-58.859H256v111.474h120.34c-5.188 28.592-21.492 52.684-45.562 68.734V420.5h91.13c53.336-49.19 84.056-121.034 84.056-200.703z"
+          fill="#4285F4"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M256 478c68.868 0 126.79-22.95 169.04-62.5l-91.13-70.641c-25.047 16.7-57.146 26.641-91.91 26.641-70.52 0-130.2-47.53-151.79-111.085H41.815V348.6c43.437 84.97 129.412 138.4 214.185 138.4z"
+          fill="#34A853"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M104.21 281.393c-4.994-15.023-7.85-30.985-7.85-47.393s2.856-32.37 7.85-47.393V104.606H41.815C16.326 156.918 0 206.592 0 234c0 27.408 16.326 77.082 41.815 129.394L104.21 281.393z"
+          fill="#FBBC05"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M256 100.938c38.163 0 72.345 13.11 99.16 38.65L418.9 77.404C375.64 30.99 320.12 0 256 0c-84.773 0-170.748 53.43-214.185 138.404l62.395 48.38C125.8 148.468 185.48 100.938 256 100.938z"
+          fill="#EA4335"
+        />
+      </svg>
+    </div>
+    <div
+      class="w-full lg:w-3/5 2xl:w-2/5 p-8 rounded-2xl bg-white shadow-xl max-w-4xl border border-gray-200"
+    >
+      <div class="text-center mb-6">
+        <h1 class="text-4xl font-normal tracking-tight">
+          <span class="text-blue-500">G</span><span class="text-red-500">e</span
+          ><span class="text-yellow-500">m</span
+          ><span class="text-blue-500">i</span
+          ><span class="text-green-500">n</span
+          ><span class="text-red-500">i</span>
+          <span class="font-bold text-gray-700">Chat</span>
+        </h1>
+        <p class="text-gray-500 text-sm mt-1">A helpful AI assistant</p>
+      </div>
+
+      <div
+        id="chatLog"
+        class="mt-4 h-96 overflow-y-auto bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-inner flex flex-col space-y-4"
+      >
+        <div class="text-center text-gray-400 text-sm italic py-4">
+          Ask Gemini anything...
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-col space-y-3">
+        <input
+          type="text"
+          id="promptInput"
+          class="w-full px-5 py-4 rounded-full bg-white border border-gray-300 placeholder-gray-500 input-focus-google focus:outline-none transition-all text-lg shadow-md"
+          placeholder="Type your question here..."
+        />
+
+        <div class="flex justify-center space-x-4">
+          <button
+            id="generateBtn"
+            class="px-6 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+          >
+            Ask Gemini
+          </button>
+
+          <button
+            id="resetBtn"
+            class="px-6 py-2 border border-gray-300 bg-white text-gray-700 font-medium rounded-lg hover:bg-100 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+          >
+            New Chat
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
