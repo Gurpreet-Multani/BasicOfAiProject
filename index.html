@@ -58,7 +58,8 @@
     <script type="module" src="index.js"></script>
   </head>
   <body
-    class="bg-white text-gray-800 min-h-screen flex flex-col items-center justify-center font-sans p-4"
+    class="bg-white text-gray-800 min-h-screen flex flex-col items-center justify-start font-sans p-4"
+    style="padding-top: 2rem"
   >
     <div class="google-bg-motif">
       <svg
@@ -93,8 +94,9 @@
         />
       </svg>
     </div>
+    <!-- Adjusted width for full responsiveness on all devices -->
     <div
-      class="w-full lg:w-3/5 2xl:w-2/5 p-8 rounded-2xl bg-white shadow-xl max-w-4xl border border-gray-200"
+      class="w-full max-w-lg md:max-w-3xl lg:max-w-4xl p-4 md:p-8 rounded-2xl bg-white shadow-xl border border-gray-200"
     >
       <div class="text-center mb-6">
         <h1 class="text-4xl font-normal tracking-tight">
@@ -108,9 +110,10 @@
         <p class="text-gray-500 text-sm mt-1">A helpful AI assistant</p>
       </div>
 
+      <!-- Adjusted height for mobile view -->
       <div
         id="chatLog"
-        class="mt-4 h-96 overflow-y-auto bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-inner flex flex-col space-y-4"
+        class="mt-4 h-96 sm:h-[400px] overflow-y-auto bg-gray-50 border border-gray-200 p-4 rounded-xl shadow-inner flex flex-col space-y-4"
       >
         <div class="text-center text-gray-400 text-sm italic py-4">
           Ask Gemini anything...
@@ -125,17 +128,20 @@
           placeholder="Type your question here..."
         />
 
-        <div class="flex justify-center space-x-4">
+        <!-- Button container now uses flex-col on small screens for better stacking -->
+        <div
+          class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4"
+        >
           <button
             id="generateBtn"
-            class="px-6 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+            class="w-full sm:w-auto px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
           >
             Ask Gemini
           </button>
 
           <button
             id="resetBtn"
-            class="px-6 py-2 border border-gray-300 bg-white text-gray-700 font-medium rounded-lg hover:bg-100 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+            class="w-full sm:w-auto px-6 py-3 border border-gray-300 bg-white text-gray-700 font-medium rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
           >
             New Chat
           </button>
